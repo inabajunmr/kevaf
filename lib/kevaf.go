@@ -17,7 +17,7 @@ Put create file by filename as key and content as value
 When failed to write file, return error
 */
 func (f FileMap) Put(key string, value []byte) error {
-	file, err := os.Create(f.path)
+	file, err := os.Create(f.path + "/" + key)
 	defer file.Close()
 	if err != nil {
 		return err
