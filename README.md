@@ -1,4 +1,7 @@
 # kevaf
+
+[![GoDoc](https://godoc.org/github.com/inabajunmr/kevaf?status.svg)](https://godoc.org/github.com/inabajunmr/kevaf)
+
 Lightweight file-base KVS for golang.
 
 # Install
