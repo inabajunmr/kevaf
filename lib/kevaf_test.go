@@ -35,5 +35,10 @@ func TestPutGet(t *testing.T) {
 }
 
 func TestGetNotExist(t *testing.T) {
-	// TODO
+	kvs := FileMap{"."}
+	_, err := kvs.Get("absent")
+
+	if err == nil {
+		t.Fatal("Not put but err is nil.")
+	}
 }
