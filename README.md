@@ -1,6 +1,11 @@
 # kevaf
 Lightweight file-base KVS for golang.
 
+# Install
+```
+go get github.com/inabajunmr/kevaf
+```
+
 # Usage
 ```go
 package main
