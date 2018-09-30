@@ -1,18 +1,23 @@
 package kevaf
 
 import (
+	"io/ioutil"
 	"reflect"
 	"testing"
 )
 
 func TestPutGet(t *testing.T) {
-	// TODO user tmp file for test
 	k := "testkey"
 	v := []byte{0, 1, 0, 1, 0}
 
+	dir, err := ioutil.TempDir("", "kevaf_test")
+	if err != nil {
+		t.Fatal("Can not prepare test.", err)
+	}
+
 	// initialize
-	kvs := FileMap{"."}
-	err := kvs.Put(k, v)
+	kvs := FileMap{dir}
+	err = kvs.Put(k, v)
 
 	if err != nil {
 		t.Fatal("Failed test for Put.", err)
