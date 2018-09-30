@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/inabajunmr/kevaf/lib"
+	kevaf "github.com/inabajunmr/kevaf/lib"
 )
 
 func TestPutGet(t *testing.T) {
