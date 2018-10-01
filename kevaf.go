@@ -20,7 +20,9 @@ Put create file by filename as key and content as value
 When failed to write file, return error
 */
 func (f Map) Put(key string, value []byte) error {
-	file, err := os.OpenFile(f.Path+"/"+key, os.O_WRONLY|os.O_CREATE, 0666)
+	file, err := os.OpenFile(createFilePath(f.Path, key),
+		os.O_WRONLY|os.O_CREATE, 0666)
+
 	defer file.Close()
 	if err != nil {
 		return err
@@ -34,10 +36,21 @@ func (f Map) Put(key string, value []byte) error {
 Get read file matching key underneath FileMap.Path
 */
 func (f Map) Get(key string) (value []byte, err error) {
-	data, err := ioutil.ReadFile(f.Path + "/" + key)
+	data, err := ioutil.ReadFile(createFilePath(f.Path, key))
 	if err != nil {
 		return nil, err
 	}
 
 	return data, nil
+}
+
+/*
+Remove specific data by matching key
+*/
+func (f Map) Remove(key string) (err error) {
+	return os.Remove(createFilePath(f.Path, key))
+}
+
+func createFilePath(basePath string, key string) string {
+	return basePath + "/" + key
 }

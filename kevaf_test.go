@@ -65,3 +65,39 @@ func TestGetNotExist(t *testing.T) {
 		t.Fatal("Not put but err is nil.")
 	}
 }
+
+func TestRemove(t *testing.T) {
+	k := "testkey"
+	v1 := []byte("hello")
+
+	dir, err := ioutil.TempDir("", "kevaf_test")
+	if err != nil {
+		t.Fatal("Can not prepare test.", err)
+	}
+
+	// initialize
+	kvs := Map{dir}
+	err = kvs.Put(k, v1)
+
+	if err != nil {
+		t.Fatal("Failed test for Put.", err)
+	}
+
+	_, err = kvs.Get(k)
+	if err != nil {
+		t.Fatal("Failed test for Put.", err)
+	}
+
+	// Remove
+	err = kvs.Remove(k)
+
+	if err != nil {
+		t.Fatal("Failed test for Put.", err)
+	}
+
+	_, err = kvs.Get(k)
+	if err == nil {
+		t.Fatal("Get removed value but no error.", err)
+	}
+
+}
