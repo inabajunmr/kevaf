@@ -101,3 +101,43 @@ func TestRemove(t *testing.T) {
 	}
 
 }
+
+func TestRemoveAll(t *testing.T) {
+	k1 := "testkey1"
+	v1 := []byte("hello")
+
+	dir, err := ioutil.TempDir("", "kevaf_test")
+	if err != nil {
+		t.Fatal("Can not prepare test.", err)
+	}
+
+	// initialize
+	kvs := Map{dir}
+	err = kvs.Put(k1, v1)
+
+	if err != nil {
+		t.Fatal("Failed test for Put.", err)
+	}
+
+	k2 := "testkey2"
+	v2 := []byte("goodbye")
+
+	err = kvs.Put(k2, v2)
+
+	if err != nil {
+		t.Fatal("Failed test for Put.", err)
+	}
+
+	kvs.RemoveAll()
+
+	_, err = kvs.Get(k1)
+	if err == nil {
+		t.Fatal("RemoveAll but value returned")
+	}
+
+	_, err = kvs.Get(k2)
+	if err == nil {
+		t.Fatal("RemoveAll but value returned")
+	}
+
+}

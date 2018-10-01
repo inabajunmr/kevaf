@@ -6,6 +6,7 @@ package kevaf
 import (
 	"io/ioutil"
 	"os"
+	"path/filepath"
 )
 
 /*
@@ -49,6 +50,20 @@ Remove specific data by matching key
 */
 func (f Map) Remove(key string) (err error) {
 	return os.Remove(createFilePath(f.Path, key))
+}
+
+/*
+RemoveAll data
+*/
+func (f Map) RemoveAll() (err error) {
+	return filepath.Walk(f.Path, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		os.Remove(path)
+		return nil
+	})
 }
 
 func createFilePath(basePath string, key string) string {
