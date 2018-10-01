@@ -28,8 +28,8 @@ func (f Map) Put(key string, value []byte) error {
 		return err
 	}
 
-	file.Write(value)
-	return nil
+	_, err = file.Write(value)
+	return err
 }
 
 /*
