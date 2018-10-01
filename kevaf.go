@@ -16,6 +16,24 @@ type Map struct {
 	Path string
 }
 
+// NewMap is Constructor
+func NewMap(path string) (*Map, error) {
+	m := new(Map)
+	m.Path = path
+	testKey := ".writing_test_kevaf"
+	err := m.Put(testKey, []byte("test"))
+	if err != nil {
+		return nil, err
+	}
+
+	err = m.Remove(testKey)
+	if err != nil {
+		return nil, err
+	}
+
+	return m, nil
+}
+
 /*
 Put create file by filename as key and content as value
 When failed to write file, return error

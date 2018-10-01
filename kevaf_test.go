@@ -16,7 +16,10 @@ func TestPutGet(t *testing.T) {
 	}
 
 	// initialize
-	kvs := Map{dir}
+	kvs, err := NewMap(dir)
+	if err != nil {
+		t.Fatal("Failed to initialize.", err)
+	}
 	err = kvs.Put(k, v)
 
 	if err != nil {
@@ -58,7 +61,10 @@ func TestGetNotExist(t *testing.T) {
 		t.Fatal("Can not prepare test.", err)
 	}
 
-	kvs := Map{dir}
+	kvs, err := NewMap(dir)
+	if err != nil {
+		t.Fatal("Failed to initialize.", err)
+	}
 	_, err = kvs.Get("absent")
 
 	if err == nil {
@@ -76,7 +82,10 @@ func TestRemove(t *testing.T) {
 	}
 
 	// initialize
-	kvs := Map{dir}
+	kvs, err := NewMap(dir)
+	if err != nil {
+		t.Fatal("Failed to initialize.", err)
+	}
 	err = kvs.Put(k, v1)
 
 	if err != nil {
@@ -112,7 +121,11 @@ func TestRemoveAll(t *testing.T) {
 	}
 
 	// initialize
-	kvs := Map{dir}
+	kvs, err := NewMap(dir)
+	if err != nil {
+		t.Fatal("Failed to initialize.", err)
+	}
+
 	err = kvs.Put(k1, v1)
 
 	if err != nil {
@@ -140,4 +153,11 @@ func TestRemoveAll(t *testing.T) {
 		t.Fatal("RemoveAll but value returned")
 	}
 
+}
+
+func TestNewMapNotExistDir(t *testing.T) {
+	_, err := NewMap("notexistdir")
+	if err == nil {
+		t.Fatal("Not returned expected error.")
+	}
 }
