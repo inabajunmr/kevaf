@@ -1,6 +1,8 @@
 # kevaf
 
 [![GoDoc](https://godoc.org/github.com/inabajunmr/kevaf?status.svg)](https://godoc.org/github.com/inabajunmr/kevaf)
+[![codecov](https://codecov.io/gh/inabajunmr/kevaf/branch/master/graph/badge.svg)](https://codecov.io/gh/inabajunmr/kevaf)
+![CircleCI](https://circleci.com/gh/inabajunmr/kevaf/tree/master.svg?style=svg)
 
 Lightweight file-base KVS for golang.
 
