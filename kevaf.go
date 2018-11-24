@@ -4,10 +4,21 @@ Package kevaf is light-weight filebase kvs.
 package kevaf
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 )
+
+// NotFoundError express value not exist.
+type NotFoundError struct {
+	key  string
+	path string
+}
+
+func (err *NotFoundError) Error() string {
+	return fmt.Sprintf("Value is not exist. key:%v, path:%v", err.key, err.path)
+}
 
 /*
 Map is file base Kvs interface
@@ -55,8 +66,16 @@ func (f Map) Put(key string, value []byte) error {
 Get read file matching key underneath FileMap.Path
 */
 func (f Map) Get(key string) (value []byte, err error) {
-	data, err := ioutil.ReadFile(createFilePath(f.Path, key))
+
+	p := createFilePath(f.Path, key)
+
+	if _, err := os.Stat(p); os.IsNotExist(err) {
+		return nil, &NotFoundError{key: key, path: f.Path}
+	}
+
+	data, err := ioutil.ReadFile(p)
 	if err != nil {
+		// unexpected error
 		return nil, err
 	}
 
