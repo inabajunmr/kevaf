@@ -32,7 +32,7 @@ func TestPutGet(t *testing.T) {
 		t.Fatal("Failed test for Put.", err)
 	}
 
-	if reflect.DeepEqual(v, value) == false {
+	if !reflect.DeepEqual(v, value) {
 		t.Fatal("Failed test for Get. Not equals between Put value and Get value", err)
 	}
 
@@ -50,7 +50,7 @@ func TestPutGet(t *testing.T) {
 		t.Fatal("Failed test for Put.", err)
 	}
 
-	if reflect.DeepEqual(v, value) == false {
+	if !reflect.DeepEqual(v, value) {
 		t.Fatal("Failed test for Get. Not equals between Put value and Get value", err)
 	}
 }
