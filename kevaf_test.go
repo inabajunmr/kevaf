@@ -67,6 +67,12 @@ func TestGetNotExist(t *testing.T) {
 	}
 	_, err = kvs.Get("absent")
 
+	typeName := reflect.TypeOf(err).String()
+	expectedTypeName := "*kevaf.NotFoundError"
+	if typeName != expectedTypeName {
+		t.Fatalf("Error type is unexpected. Expected:%v, Actual:%v", expectedTypeName, typeName)
+	}
+
 	if err == nil {
 		t.Fatal("Not put but err is nil.")
 	}
